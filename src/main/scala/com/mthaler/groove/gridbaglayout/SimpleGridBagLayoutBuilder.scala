@@ -9,6 +9,8 @@ trait SimpleGridBagLayoutBuilder {
 
   me: JPanel =>
 
+  import SimpleGridBagLayoutBuilder._
+
   private val builder = ArrayBuffer.empty[Row]
 
   case class Item(component: Component, constraints: GridBagConstraints)
@@ -25,10 +27,15 @@ trait SimpleGridBagLayoutBuilder {
     }
   }
 
-  def row(items: Component*) = {
-    Row(items.map(component => Item(component, GridBagConstraints.Default)))
-    builder += Row(items.map(component => Item(component, GridBagConstraints.Default)))
+  def row(items: (Component, GridBagConstraints)*) = {
+    builder += Row(items.map { case (component, constraint) => Item(component, constraint) })
   }
 
-  def label(text: String): JLabel = new JLabel(text)
+  def label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+}
+
+object SimpleGridBagLayoutBuilder {
+  case class LabelGridBagConstraints(constraints: GridBagConstraints)
+
+  implicit val labelDefaultGridBagConstraints = LabelGridBagConstraints(GridBagConstraints.Default)
 }

@@ -5,7 +5,7 @@ import javax.swing.{JFrame, JPanel}
 
 object SimpleGridBagLayoutBuilderTestApp extends App {
 
-  val frame = new JFrame("MouseHoverTestApp")
+  val frame = new JFrame("SimpleGridBagLayoutBuilderTestApp")
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 
   val p = new JPanel with SimpleGridBagLayoutBuilder {
