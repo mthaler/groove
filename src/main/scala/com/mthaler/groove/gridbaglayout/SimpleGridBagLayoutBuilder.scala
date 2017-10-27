@@ -1,9 +1,9 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
-import javax.swing.{JLabel, JPanel}
-
+import javax.swing.{JLabel, JPanel, JTextField}
 import scala.collection.mutable.ArrayBuffer
+import scala.language.implicitConversions
 
 trait SimpleGridBagLayoutBuilder {
 
@@ -22,7 +22,7 @@ trait SimpleGridBagLayoutBuilder {
     body
     for ((row, rowIndex) <- builder.zipWithIndex) {
       for ((item, colIndex) <- row.items.zipWithIndex) {
-        add(item.component, GridBagConstraints(colIndex, rowIndex).toAWT)
+        add(item.component, item.constraints.copy(gridx = colIndex, gridy = rowIndex).toAWT)
       }
     }
   }
@@ -31,11 +31,15 @@ trait SimpleGridBagLayoutBuilder {
     builder += Row(items.map { case (component, constraint) => Item(component, constraint) })
   }
 
-  def label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+  implicit def label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+
+  implicit def textField(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
 }
 
 object SimpleGridBagLayoutBuilder {
   case class LabelGridBagConstraints(constraints: GridBagConstraints)
+  case class TextFieldGridBagConstraints(constraints: GridBagConstraints)
 
   implicit val labelDefaultGridBagConstraints = LabelGridBagConstraints(GridBagConstraints.Default)
+  implicit val textFieldDefaultGridBagConstraints = TextFieldGridBagConstraints(GridBagConstraints.Default)
 }
