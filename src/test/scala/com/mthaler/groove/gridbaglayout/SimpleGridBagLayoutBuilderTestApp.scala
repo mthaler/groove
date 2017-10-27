@@ -1,7 +1,7 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.Dimension
-import javax.swing.{JFrame, JLabel, JPanel}
+import javax.swing.{JFrame, JPanel}
 
 object SimpleGridBagLayoutBuilderTestApp extends App {
 
@@ -10,8 +10,8 @@ object SimpleGridBagLayoutBuilderTestApp extends App {
 
   val p = new JPanel with SimpleGridBagLayoutBuilder {
     gridbaglayout {
-      row(new JLabel("label1"), new JLabel("label2"))
-      row(new JLabel("label3"), new JLabel("label4"))
+      row(label("label1"), label("label2"))
+      row(label("label3"), label("label4"))
     }
   }
   frame.setContentPane(p)

@@ -1,7 +1,8 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
-import javax.swing.JPanel
+import javax.swing.{JLabel, JPanel}
+
 import scala.collection.mutable.ArrayBuffer
 
 trait SimpleGridBagLayoutBuilder {
@@ -28,4 +29,6 @@ trait SimpleGridBagLayoutBuilder {
     Row(items.map(component => Item(component, GridBagConstraints.Default)))
     builder += Row(items.map(component => Item(component, GridBagConstraints.Default)))
   }
+
+  def label(text: String): JLabel = new JLabel(text)
 }
