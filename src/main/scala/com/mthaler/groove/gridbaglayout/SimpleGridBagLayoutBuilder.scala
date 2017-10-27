@@ -2,22 +2,30 @@ package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
 import javax.swing.JPanel
+import scala.collection.mutable.ArrayBuffer
 
-object SimpleGridBagLayoutBuilder {
+trait SimpleGridBagLayoutBuilder {
+
+  me: JPanel =>
+
+  implicit val layoutBuilder = ArrayBuffer.empty[Row]
 
   case class Item(component: Component, constraints: GridBagConstraints)
 
   case class Row(items: Seq[Item])
 
-  def gridbaglayout(rows: Row*)(implicit panel: JPanel): Unit = {
-    panel.setLayout(new GridBagLayout)
-    for((row, rowIndex) <- rows.zipWithIndex) {
+  def gridbaglayout(body: => Unit): Unit = {
+    setLayout(new GridBagLayout)
+    body
+    for ((row, rowIndex) <- layoutBuilder.zipWithIndex) {
       for ((item, colIndex) <- row.items.zipWithIndex) {
-        val c = GridBagConstraints(colIndex, rowIndex)
-        panel.add(item.component, c.toAWT)
+        add(item.component, GridBagConstraints(colIndex, rowIndex).toAWT)
       }
     }
   }
 
-  def row(items: Component*): Row = Row(items.map(component => Item(component, GridBagConstraints.Default)))
+  def row(items: Component*)(implicit builder: ArrayBuffer[Row]) = {
+    Row(items.map(component => Item(component, GridBagConstraints.Default)))
+    builder += Row(items.map(component => Item(component, GridBagConstraints.Default)))
+  }
 }
