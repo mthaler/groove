@@ -1,7 +1,8 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
-import javax.swing.{JLabel, JPanel, JTextField}
+import javax.swing.{JComboBox, JLabel, JPanel, JTextField}
+
 import scala.collection.mutable.ArrayBuffer
 import scala.language.implicitConversions
 
@@ -31,15 +32,21 @@ trait SimpleGridBagLayoutBuilder {
     builder += Row(items.map { case (component, constraint) => Item(component, constraint) })
   }
 
+  def empty = (new EmptyComponent, GridBagConstraints.Default)
+
   implicit def label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
 
   implicit def textField(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
+
+  implicit def comboBox(comboBox: JComboBox[_])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
 }
 
 object SimpleGridBagLayoutBuilder {
   case class LabelGridBagConstraints(constraints: GridBagConstraints)
   case class TextFieldGridBagConstraints(constraints: GridBagConstraints)
+  case class ComboBoxGridBagConstraints(constraints: GridBagConstraints)
 
-  implicit val labelDefaultGridBagConstraints = LabelGridBagConstraints(GridBagConstraints.Default)
-  implicit val textFieldDefaultGridBagConstraints = TextFieldGridBagConstraints(GridBagConstraints.Default)
+  implicit val defaultLabelGridBagConstraints = LabelGridBagConstraints(GridBagConstraints.Default)
+  implicit val defaultTextFieldGridBagConstraints = TextFieldGridBagConstraints(GridBagConstraints.Default)
+  implicit val defaultComboBoxGridBagConstraints = ComboBoxGridBagConstraints(GridBagConstraints.Default)
 }
