@@ -18,3 +18,8 @@ case class GridBagConstraints(gridx: Int = JGridBagConstraints.RELATIVE,
     weightx, weighty, anchor.toInt, fill.toInt, insets.toAWT, ipadx, ipady)
 }
 
+object GridBagConstraints {
+
+  val Default = GridBagConstraints()
+}
+

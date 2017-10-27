@@ -10,6 +10,10 @@ object SimpleGridBagLayoutBuilder {
 
   case class Row(items: Seq[Item])
 
+  def row(items: JComponent*)(implicit b: SimpleGridBagLayoutBuilder) = {
+    b.addRow(Row(items.map { case component => Item(component, GridBagConstraints.Default) }))
+  }
+
   def row(items: Tuple2[JComponent, GridBagConstraints]*)(implicit b: SimpleGridBagLayoutBuilder) = {
     b.addRow(Row(items.map { case(component, constraint) => Item(component, constraint) }))
   }
