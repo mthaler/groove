@@ -11,7 +11,7 @@ object SimpleGridBagLayoutBuilder {
 
   def gridbaglayout(rows: Row*)(implicit panel: JPanel): Unit = {
     panel.setLayout(new GridBagLayout)
-    for((row, rowIndex) <- rows.zipWithIndex) {)
+    for((row, rowIndex) <- rows.zipWithIndex) {
       for ((item, colIndex) <- row.items.zipWithIndex) {
         val c = GridBagConstraints(colIndex, rowIndex)
         panel.add(item.component, c.toAWT)
