@@ -3,9 +3,9 @@ package com.mthaler.groove.gridbaglayout
 import java.awt.Dimension
 import javax.swing.{JComboBox, JFrame, JPanel, JTextField}
 
-import com.mthaler.groove.gridbaglayout.SimpleGridBagLayoutBuilder.{ComboBoxGridBagConstraints, LabelGridBagConstraints, TextFieldGridBagConstraints}
+import com.mthaler.groove.gridbaglayout.GridBagLayoutBuilder.{ComboBoxGridBagConstraints, LabelGridBagConstraints, TextFieldGridBagConstraints}
 
-object SimpleGridBagLayoutBuilderTestApp extends App {
+object GridBagLayoutBuilderTestApp extends App {
 
   val frame = new JFrame("SimpleGridBagLayoutBuilderTestApp")
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
@@ -16,7 +16,7 @@ object SimpleGridBagLayoutBuilderTestApp extends App {
   comboBoxGender.addItem("male")
   comboBoxGender.addItem("female")
 
-  val p = new JPanel with SimpleGridBagLayoutBuilder {
+  val p = new JPanel with GridBagLayoutBuilder {
     implicit val labelConstraints = LabelGridBagConstraints(GridBagConstraints(anchor = Anchor.WEST))
     implicit val textFieldConstraints = TextFieldGridBagConstraints(GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))
     implicit val comboBoxConstraints = ComboBoxGridBagConstraints(GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))

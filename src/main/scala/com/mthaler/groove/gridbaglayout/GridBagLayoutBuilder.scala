@@ -2,15 +2,14 @@ package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
 import javax.swing.{JComboBox, JLabel, JPanel, JTextField}
-
 import scala.collection.mutable.ArrayBuffer
 import scala.language.implicitConversions
 
-trait SimpleGridBagLayoutBuilder {
+trait GridBagLayoutBuilder {
 
   me: JPanel =>
 
-  import SimpleGridBagLayoutBuilder._
+  import GridBagLayoutBuilder._
 
   private val builder = ArrayBuffer.empty[Row]
 
@@ -34,14 +33,16 @@ trait SimpleGridBagLayoutBuilder {
 
   def empty = (new EmptyComponent, GridBagConstraints.Default)
 
-  implicit def label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+  implicit def label(label: JLabel)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
+
+  implicit def label2String(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
 
   implicit def textField(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
 
-  implicit def comboBox(comboBox: JComboBox[_])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
+  implicit def comboBox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
 }
 
-object SimpleGridBagLayoutBuilder {
+object GridBagLayoutBuilder {
   case class LabelGridBagConstraints(constraints: GridBagConstraints)
   case class TextFieldGridBagConstraints(constraints: GridBagConstraints)
   case class ComboBoxGridBagConstraints(constraints: GridBagConstraints)
