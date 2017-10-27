@@ -8,7 +8,7 @@ trait SimpleGridBagLayoutBuilder {
 
   me: JPanel =>
 
-  implicit val layoutBuilder = ArrayBuffer.empty[Row]
+  private val builder = ArrayBuffer.empty[Row]
 
   case class Item(component: Component, constraints: GridBagConstraints)
 
@@ -17,14 +17,14 @@ trait SimpleGridBagLayoutBuilder {
   def gridbaglayout(body: => Unit): Unit = {
     setLayout(new GridBagLayout)
     body
-    for ((row, rowIndex) <- layoutBuilder.zipWithIndex) {
+    for ((row, rowIndex) <- builder.zipWithIndex) {
       for ((item, colIndex) <- row.items.zipWithIndex) {
         add(item.component, GridBagConstraints(colIndex, rowIndex).toAWT)
       }
     }
   }
 
-  def row(items: Component*)(implicit builder: ArrayBuffer[Row]) = {
+  def row(items: Component*) = {
     Row(items.map(component => Item(component, GridBagConstraints.Default)))
     builder += Row(items.map(component => Item(component, GridBagConstraints.Default)))
   }
