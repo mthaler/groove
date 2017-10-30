@@ -35,11 +35,11 @@ trait GridBagLayoutBuilder {
 
   implicit def label(label: JLabel)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
 
-  implicit def label2String(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+  implicit def string2label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
 
-  implicit def textField(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
+  implicit def textfield(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
 
-  implicit def comboBox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
+  implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
 }
 
 object GridBagLayoutBuilder {
