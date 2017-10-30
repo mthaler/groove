@@ -15,6 +15,7 @@ object GridBagLayoutBuilderTestApp extends App {
   val comboBoxGender = new JComboBox[String]()
   comboBoxGender.addItem("male")
   comboBoxGender.addItem("female")
+  val textFieldDescription = new JTextField("Enter some text")
 
   val p = new JPanel with GridBagLayoutBuilder {
     implicit val labelConstraints = LabelGridBagConstraints(GridBagConstraints(anchor = Anchor.WEST))
@@ -25,11 +26,12 @@ object GridBagLayoutBuilderTestApp extends App {
       row("First name:", textFieldFirstName)
       row("Last name:", textFieldLastName)
       row(empty, comboBoxGender)
+      row(textfield(textFieldDescription, 2))
     }
   }
 
   frame.setContentPane(p)
-  frame.setPreferredSize(new Dimension(200, 100))
+  frame.setPreferredSize(new Dimension(200, 120))
   frame.pack()
   frame.setVisible(true)
 }

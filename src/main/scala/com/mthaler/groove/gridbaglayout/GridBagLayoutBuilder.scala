@@ -13,33 +13,51 @@ trait GridBagLayoutBuilder {
 
   private val builder = ArrayBuffer.empty[Row]
 
-  case class Item(component: Component, constraints: GridBagConstraints)
+  protected case class Item(component: Component, constraint: GridBagConstraints)
 
-  case class Row(items: Seq[Item])
+  protected case class Row(items: Seq[Item])
 
-  def gridbaglayout(body: => Unit): Unit = {
+  protected def gridbaglayout(body: => Unit): Unit = {
     setLayout(new GridBagLayout)
     body
     for ((row, rowIndex) <- builder.zipWithIndex) {
+      var colIndex = 0
+      for (item <- row.items) {
+        val component = item.component
+        // update constraint with gridx and gridy position
+        val constraint = item.constraint.copy(gridx = colIndex, gridy = rowIndex)
+        add(component, constraint.toAWT)
+        // update column index taking gridwith into account
+        colIndex += constraint.gridwidth
+      }
+
       for ((item, colIndex) <- row.items.zipWithIndex) {
-        add(item.component, item.constraints.copy(gridx = colIndex, gridy = rowIndex).toAWT)
+        add(item.component, item.constraint.copy(gridx = colIndex, gridy = rowIndex).toAWT)
       }
     }
   }
 
-  def row(items: (Component, GridBagConstraints)*) = {
+  protected def row(items: (Component, GridBagConstraints)*) = {
     builder += Row(items.map { case (component, constraint) => Item(component, constraint) })
   }
 
-  def empty = (new EmptyComponent, GridBagConstraints.Default)
+  protected def empty = (new EmptyComponent, GridBagConstraints.Default)
 
-  implicit def label(label: JLabel)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
+  protected def empty(gridwidth: Int) = (new EmptyComponent, GridBagConstraints.Default.copy(gridwidth = gridwidth))
 
-  implicit def string2label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+  protected implicit def label(label: JLabel)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
 
-  implicit def textfield(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
+  protected def label(label: JLabel, gridwidth: Int)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
 
-  implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
+  protected implicit def string2label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+
+  protected implicit def textfield(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
+
+  protected def textfield(textField: JTextField, gridwidth: Int)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints.copy(gridwidth = gridwidth))
+
+  protected implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
+
+  protected def combobox[T](comboBox: JComboBox[T], gridwidth: Int)(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints.copy(gridwidth = gridwidth))
 }
 
 object GridBagLayoutBuilder {
