@@ -30,10 +30,6 @@ trait GridBagLayoutBuilder {
         // update column index taking gridwith into account
         colIndex += constraint.gridwidth
       }
-
-      for ((item, colIndex) <- row.items.zipWithIndex) {
-        add(item.component, item.constraint.copy(gridx = colIndex, gridy = rowIndex).toAWT)
-      }
     }
   }
 
