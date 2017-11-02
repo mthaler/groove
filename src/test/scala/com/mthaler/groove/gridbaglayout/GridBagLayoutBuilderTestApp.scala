@@ -26,6 +26,9 @@ object GridBagLayoutBuilderTestApp extends App {
       row("First name:", textFieldFirstName)
       row("Last name:", textFieldLastName)
       row(empty, comboBoxGender)
+    }
+
+    gridbaglayout {
       row(textfield(textFieldDescription, 2))
     }
   }

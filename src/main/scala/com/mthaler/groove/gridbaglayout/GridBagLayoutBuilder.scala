@@ -12,6 +12,7 @@ trait GridBagLayoutBuilder {
   import GridBagLayoutBuilder._
 
   private val builder = ArrayBuffer.empty[Row]
+  private var rowIndex = 0
 
   protected case class Item(component: Component, constraint: GridBagConstraints)
 
@@ -20,7 +21,7 @@ trait GridBagLayoutBuilder {
   protected def gridbaglayout(body: => Unit): Unit = {
     setLayout(new GridBagLayout)
     body
-    for ((row, rowIndex) <- builder.zipWithIndex) {
+    for (row <- builder) {
       var colIndex = 0
       for (item <- row.items) {
         val component = item.component
@@ -30,6 +31,7 @@ trait GridBagLayoutBuilder {
         // update column index taking gridwith into account
         colIndex += constraint.gridwidth
       }
+      rowIndex += 1
     }
   }
 
