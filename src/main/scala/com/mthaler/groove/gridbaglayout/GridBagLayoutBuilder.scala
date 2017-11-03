@@ -43,23 +43,15 @@ trait GridBagLayoutBuilder {
 
   protected def empty(gridwidth: Int) = (new EmptyComponent, GridBagConstraints.Default.copy(gridwidth = gridwidth))
 
-  protected implicit def label(label: JLabel)(implicit constraints: Constraints[JLabel]) = (label, constraints.constraints)
-
-  protected def label(label: JLabel, gridwidth: Int)(implicit constraints: Constraints[JLabel]) = (label, constraints.constraints)
-
   protected implicit def string2label(text: String)(implicit constraints: Constraints[JLabel]) = (new JLabel(text), constraints.constraints)
 
-  protected implicit def textfield(textField: JTextField)(implicit constraints: Constraints[JTextField]) = (textField, constraints.constraints)
+  protected implicit def component[T <: Component](component: T)(implicit constraints: Constraints[T]) = (component, constraints.constraints)
 
-  protected def textfield(textField: JTextField, gridwidth: Int)(implicit constraints: Constraints[JTextField]) = (textField, constraints.constraints.copy(gridwidth = gridwidth))
+  protected implicit def component[T <: Component](component: T, constraints: GridBagConstraints) = (component, constraints)
+
+  protected implicit def component[T <: Component](component: T, gridwidth: Int)(implicit constraints: Constraints[T]) = (component, constraints.constraints.copy(gridwidth = gridwidth))
 
   protected implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints)
-
-  protected def combobox[T](comboBox: JComboBox[T], gridwidth: Int)(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints.copy(gridwidth = gridwidth))
-
-  protected implicit def checkbox(checkBox: JCheckBox)(implicit constrains: Constraints[JCheckBox]) = (checkBox, constrains.constraints)
-
-  protected def checkbox[T](checkbox: JComboBox[T], gridwidth: Int)(implicit constrains: Constraints[JCheckBox]) = (checkbox, constrains.constraints.copy(gridwidth = gridwidth))
 }
 
 object GridBagLayoutBuilder {
@@ -68,4 +60,5 @@ object GridBagLayoutBuilder {
   implicit val defaultLabelGridBagConstraints = Constraints[JLabel](GridBagConstraints.Default)
   implicit val defaultTextFieldGridBagConstraints = Constraints[JTextField](GridBagConstraints.Default)
   implicit val defaultComboBoxGridBagConstraints = Constraints[JComboBox[_]](GridBagConstraints.Default)
+  implicit val defaultCheckBoxGridBagConstraints = Constraints[JCheckBox](GridBagConstraints.Default)
 }

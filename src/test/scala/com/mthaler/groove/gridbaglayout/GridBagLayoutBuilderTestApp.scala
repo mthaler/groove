@@ -29,7 +29,7 @@ object GridBagLayoutBuilderTestApp extends App {
     }
 
     gridbaglayout {
-      row(textfield(textFieldDescription, 2))
+      row(component(textFieldDescription, 2))
     }
   }
 
