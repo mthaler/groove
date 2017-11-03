@@ -1,7 +1,7 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.{Component, GridBagLayout}
-import javax.swing.{JComboBox, JLabel, JPanel, JTextField}
+import javax.swing._
 import scala.collection.mutable.ArrayBuffer
 import scala.language.implicitConversions
 
@@ -56,6 +56,10 @@ trait GridBagLayoutBuilder {
   protected implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints)
 
   protected def combobox[T](comboBox: JComboBox[T], gridwidth: Int)(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints.copy(gridwidth = gridwidth))
+
+  protected implicit def checkbox(checkBox: JCheckBox)(implicit constrains: Constraints[JCheckBox]) = (checkBox, constrains.constraints)
+
+  protected def checkbox[T](checkbox: JComboBox[T], gridwidth: Int)(implicit constrains: Constraints[JCheckBox]) = (checkbox, constrains.constraints.copy(gridwidth = gridwidth))
 }
 
 object GridBagLayoutBuilder {
