@@ -56,9 +56,4 @@ trait GridBagLayoutBuilder {
 
 object GridBagLayoutBuilder {
   case class Constraints[T](constraints: GridBagConstraints)
-
-  implicit val defaultLabelGridBagConstraints = Constraints[JLabel](GridBagConstraints.Default)
-  implicit val defaultTextFieldGridBagConstraints = Constraints[JTextField](GridBagConstraints.Default)
-  implicit val defaultComboBoxGridBagConstraints = Constraints[JComboBox[_]](GridBagConstraints.Default)
-  implicit val defaultCheckBoxGridBagConstraints = Constraints[JCheckBox](GridBagConstraints.Default)
 }
