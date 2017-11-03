@@ -43,27 +43,25 @@ trait GridBagLayoutBuilder {
 
   protected def empty(gridwidth: Int) = (new EmptyComponent, GridBagConstraints.Default.copy(gridwidth = gridwidth))
 
-  protected implicit def label(label: JLabel)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
+  protected implicit def label(label: JLabel)(implicit constraints: Constraints[JLabel]) = (label, constraints.constraints)
 
-  protected def label(label: JLabel, gridwidth: Int)(implicit constraints: LabelGridBagConstraints) = (label, constraints.constraints)
+  protected def label(label: JLabel, gridwidth: Int)(implicit constraints: Constraints[JLabel]) = (label, constraints.constraints)
 
-  protected implicit def string2label(text: String)(implicit constraints: LabelGridBagConstraints) = (new JLabel(text), constraints.constraints)
+  protected implicit def string2label(text: String)(implicit constraints: Constraints[JLabel]) = (new JLabel(text), constraints.constraints)
 
-  protected implicit def textfield(textField: JTextField)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints)
+  protected implicit def textfield(textField: JTextField)(implicit constraints: Constraints[JTextField]) = (textField, constraints.constraints)
 
-  protected def textfield(textField: JTextField, gridwidth: Int)(implicit constraints: TextFieldGridBagConstraints) = (textField, constraints.constraints.copy(gridwidth = gridwidth))
+  protected def textfield(textField: JTextField, gridwidth: Int)(implicit constraints: Constraints[JTextField]) = (textField, constraints.constraints.copy(gridwidth = gridwidth))
 
-  protected implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints)
+  protected implicit def combobox[T](comboBox: JComboBox[T])(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints)
 
-  protected def combobox[T](comboBox: JComboBox[T], gridwidth: Int)(implicit constrains: ComboBoxGridBagConstraints) = (comboBox, constrains.constraints.copy(gridwidth = gridwidth))
+  protected def combobox[T](comboBox: JComboBox[T], gridwidth: Int)(implicit constrains: Constraints[JComboBox[_]]) = (comboBox, constrains.constraints.copy(gridwidth = gridwidth))
 }
 
 object GridBagLayoutBuilder {
-  case class LabelGridBagConstraints(constraints: GridBagConstraints)
-  case class TextFieldGridBagConstraints(constraints: GridBagConstraints)
-  case class ComboBoxGridBagConstraints(constraints: GridBagConstraints)
+  case class Constraints[T](constraints: GridBagConstraints)
 
-  implicit val defaultLabelGridBagConstraints = LabelGridBagConstraints(GridBagConstraints.Default)
-  implicit val defaultTextFieldGridBagConstraints = TextFieldGridBagConstraints(GridBagConstraints.Default)
-  implicit val defaultComboBoxGridBagConstraints = ComboBoxGridBagConstraints(GridBagConstraints.Default)
+  implicit val defaultLabelGridBagConstraints = Constraints[JLabel](GridBagConstraints.Default)
+  implicit val defaultTextFieldGridBagConstraints = Constraints[JTextField](GridBagConstraints.Default)
+  implicit val defaultComboBoxGridBagConstraints = Constraints[JComboBox[_]](GridBagConstraints.Default)
 }

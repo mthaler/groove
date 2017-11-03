@@ -1,9 +1,9 @@
 package com.mthaler.groove.gridbaglayout
 
 import java.awt.Dimension
-import javax.swing.{JComboBox, JFrame, JPanel, JTextField}
+import javax.swing._
 
-import com.mthaler.groove.gridbaglayout.GridBagLayoutBuilder.{ComboBoxGridBagConstraints, LabelGridBagConstraints, TextFieldGridBagConstraints}
+import com.mthaler.groove.gridbaglayout.GridBagLayoutBuilder.Constraints
 
 object GridBagLayoutBuilderTestApp extends App {
 
@@ -18,9 +18,9 @@ object GridBagLayoutBuilderTestApp extends App {
   val textFieldDescription = new JTextField("Enter some text")
 
   val p = new JPanel with GridBagLayoutBuilder {
-    implicit val labelConstraints = LabelGridBagConstraints(GridBagConstraints(anchor = Anchor.WEST))
-    implicit val textFieldConstraints = TextFieldGridBagConstraints(GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))
-    implicit val comboBoxConstraints = ComboBoxGridBagConstraints(GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))
+    implicit val labelConstraints = Constraints[JLabel](GridBagConstraints(anchor = Anchor.WEST))
+    implicit val textFieldConstraints = Constraints[JTextField](GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))
+    implicit val comboBoxConstraints = Constraints[JComboBox[_]](GridBagConstraints(fill = Fill.HORIZONTAL, weightx = 0.5))
 
     gridbaglayout {
       row("First name:", textFieldFirstName)
