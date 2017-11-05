@@ -7,7 +7,7 @@ import com.mthaler.groove.gridbaglayout.GridBagLayoutBuilder.Constraints
 
 object GridBagLayoutBuilderTestApp extends App {
 
-  val frame = new JFrame("SimpleGridBagLayoutBuilderTestApp")
+  val frame = new JFrame("GridBagLayoutBuilderTestApp")
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 
   val textFieldFirstName = new JTextField()
