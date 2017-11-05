@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mthaler/groove_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.mthaler/groove_2.11)
+
 _groove_ is a library that makes Swing a bit more pleasent to use from Scala.
 
 It sports the following features:
