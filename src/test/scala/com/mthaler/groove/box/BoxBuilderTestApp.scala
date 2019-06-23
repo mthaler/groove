@@ -1,7 +1,7 @@
 package com.mthaler.groove.box
 
 import java.awt.Dimension
-import javax.swing.{JCheckBox, JFrame, JLabel}
+import javax.swing.{ JCheckBox, JFrame, JLabel }
 
 object BoxBuilderTestApp extends App with BoxBuilder {
   val frame = new JFrame("BoxBuilderTestApp")

@@ -1,6 +1,6 @@
 package com.mthaler.groove.gridbaglayout
 
-import java.awt.{Component, GridBagLayout}
+import java.awt.{ Component, GridBagLayout }
 import javax.swing._
 import scala.collection.mutable.ArrayBuffer
 import scala.language.implicitConversions

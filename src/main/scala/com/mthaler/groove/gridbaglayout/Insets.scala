@@ -1,6 +1,6 @@
 package com.mthaler.groove.gridbaglayout
 
-import java.awt.{Insets => JInsets}
+import java.awt.{ Insets => JInsets }
 
 case class Insets(top: Int, left: Int, bottom: Int, right: Int) {
 

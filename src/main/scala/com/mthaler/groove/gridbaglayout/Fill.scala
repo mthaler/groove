@@ -1,6 +1,6 @@
 package com.mthaler.groove.gridbaglayout
 
-import java.awt.{GridBagConstraints => JGridBagConstraints}
+import java.awt.{ GridBagConstraints => JGridBagConstraints }
 
 object Fill extends Enumeration {
 

@@ -1,6 +1,6 @@
 package com.mthaler.groove.box
 
-import java.awt.{Component, Dimension}
+import java.awt.{ Component, Dimension }
 import javax.swing.Box
 
 import scala.collection.mutable.ArrayBuffer

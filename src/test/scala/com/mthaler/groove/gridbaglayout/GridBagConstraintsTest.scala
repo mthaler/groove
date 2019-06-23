@@ -1,8 +1,8 @@
 package com.mthaler.groove.gridbaglayout
 
 import org.scalatest.FunSuite
-import java.awt.{GridBagConstraints => JGridBagConstraints}
-import java.awt.{Insets => JInsets}
+import java.awt.{ GridBagConstraints => JGridBagConstraints }
+import java.awt.{ Insets => JInsets }
 
 class GridBagConstraintsTest extends FunSuite {
 

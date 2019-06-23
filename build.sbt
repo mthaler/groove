@@ -5,7 +5,7 @@ lazy val grooveSettings = Seq(
   scalaVersion := "2.11.8",
   crossScalaVersions := Seq("2.11.8", "2.12.2"),
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.0.3" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.8" % "test"
   ),
   scalacOptions ++= Seq(
     "-deprecation",
@@ -17,17 +17,12 @@ lazy val grooveSettings = Seq(
 
   // release stuff
   // credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
+  releaseCrossBuild := true,
   releasePublishArtifactsAction := PgpKeys.publishSigned.value,
   publishMavenStyle := true,
   publishArtifact in Test := false,
   pomIncludeRepository := Function.const(false),
-  publishTo <<= version { v =>
-    val nexus = "https://oss.sonatype.org/"
-    if (v.trim.endsWith("SNAPSHOT"))
-      Some("Snapshots" at nexus + "content/repositories/snapshots")
-    else
-      Some("Releases" at nexus + "service/local/staging/deploy/maven2")
-  },
+  publishTo := sonatypePublishTo.value,
   pomExtra :=
     <scm>
       <url>git@github.com:mthaler/groove.git</url>
