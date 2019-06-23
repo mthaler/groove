@@ -3,7 +3,7 @@ import ReleaseTransformations._
 lazy val grooveSettings = Seq(
   organization := "com.mthaler",
   scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.11.8", "2.12.2"),
+  crossScalaVersions := Seq("2.11.8", "2.12.2", "2.13.0"),
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.0.8" % "test"
   ),
